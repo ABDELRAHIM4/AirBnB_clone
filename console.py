@@ -1,9 +1,8 @@
 import cmd
-"""class definition must be: class HBNBCommand(cmd.Cmd)"""
+"""Write a program called console.py that contains the entry point of the command interprete"""
 class HBNBCommand(cmd.Cmd):
     """class definition must be: class HBNBCommand(cmd.Cmd)"""
     prompt = "(hbnb)"
-    """class definition must be: class HBNBCommand(cmd.Cmd)"""
     def do_EOF(self,arg):
         """EOF to exit the program"""
         return True
