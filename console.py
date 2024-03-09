@@ -1,5 +1,5 @@
 import cmd
-
+"""class definition must be: class HBNBCommand(cmd.Cmd)"""
 class HBNBCommand(cmd.Cmd):
     """class definition must be: class HBNBCommand(cmd.Cmd)"""
     prompt = "(hbnb)"
