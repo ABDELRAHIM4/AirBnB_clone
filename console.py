@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import cmd
 """Write a program called console.py that contains the entry point of the command interprete"""
 class HBNBCommand(cmd.Cmd):
