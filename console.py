@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""Write a program called console.py"""
 import cmd
 """Write a program called console.py that contains the entry point of the command interprete"""
 class HBNBCommand(cmd.Cmd):
