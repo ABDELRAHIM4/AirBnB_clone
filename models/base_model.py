@@ -2,7 +2,6 @@
 """Write a class BaseModel that defines all common attributes/methods for other classes:"""
 import uuid
 import datetime
-from models import storage
 class BaseModel:
     """Write a class BaseModel that defines all common attributes/methods for other classes:"""
     def __init__(self, *args, **kwargs):
@@ -33,8 +32,13 @@ class BaseModel:
         storage.save()
     def to_dict(self):
         """to_dict(self): returns a dictionary containing all keys/values of __dict__ of the instance"""
-        new = self.__dict__.copy()
-        new['created_at'] = self.created_at.isoformat()
-        new['updated_at'] = self.updated_at.isoformat()
-        new['__class__'] = self.__class__.__name__
-        return new
+        dictionary = {}
+        for key, value in self.__dict__.items():
+            if key[0] != "_":
+                dictionary[key] = value
+            else:
+                continue
+        dictionary["__class__"] = self.__class__.__name__
+        dictionary["created_at"] = self.created_at.isoformat()
+        dictionary["updated_at"] = self.updated_at.isoformat()
+        return dictionary
