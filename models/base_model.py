@@ -2,6 +2,8 @@
 """Write a class BaseModel that defines all common attributes/methods for other classes:"""
 import uuid
 import datetime
+from models.__init__ import storage
+from models.engine.file_storage import FileStorage
 class BaseModel:
     """Write a class BaseModel that defines all common attributes/methods for other classes:"""
     def __init__(self, *args, **kwargs):
@@ -29,6 +31,7 @@ class BaseModel:
         """save(self): updates the public instance attribute updated_at with the current datetime"""
         self.updated_at = datetime.datetime.now()
         """call save(self) method of storage"""
+        storage = FileStorage()
         storage.save()
     def to_dict(self):
         """to_dict(self): returns a dictionary containing all keys/values of __dict__ of the instance"""
@@ -42,3 +45,11 @@ class BaseModel:
         dictionary["created_at"] = self.created_at.isoformat()
         dictionary["updated_at"] = self.updated_at.isoformat()
         return dictionary
+    def count(self):
+        """retrieve the number of instances of a class: <class name>.count().:"""
+        objs = storage.all()
+        count = 0
+        for obj in objs.values():
+            if type(obj).__name__ == self.__class__.__name__:
+                count += 1
+        return count
