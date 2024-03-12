@@ -76,11 +76,10 @@ class HBNBCommand(cmd.Cmd):
             class_name = args[0]
             objs = storage.all()
             my_list = []
-
             if class_name == "BaseModel":
                 if objs != None:
                     for value in objs.values():
-                            my_list.append(str(value))
+                            my_list.append(repr(value))
                     print(my_list)
                 else:
                     print("** no instances found **")
