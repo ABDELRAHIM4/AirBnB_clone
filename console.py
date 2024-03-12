@@ -32,6 +32,7 @@ class HBNBCommand(cmd.Cmd):
             else:
                 st = BaseModel()
                 st.save()
+                storage.new(st)
                 print(st.id)
     def do_show(self, arg):
         """Prints the string representation of an instance based on the class name and id"""
@@ -43,15 +44,13 @@ class HBNBCommand(cmd.Cmd):
             print("** instance id missing **")
         else:
             class_name = args[0]
-            id = args[1]
+            n_id = args[1]
 
             if class_name != "BaseModel":
                 print("** class doesn't exist **")
             else:
-                if getattr(sys.modules[__name__], class_name, None) is not None:
-                    obj = storage.__objects
-                    if id in storage:
-                        obj = storage.all()
+                    if n_id in storage.all():
+                        obj = storage.all()[n_id]
                         print(obj)
                     else:
                         print("** no instance found **")
@@ -77,9 +76,9 @@ class HBNBCommand(cmd.Cmd):
             objs = storage.all()
             my_list = []
             if class_name == "BaseModel":
-                if objs != None:
+                if objs:
                     for value in objs.values():
-                            my_list.append(repr(value))
+                            my_list.append(str(value))
                     print(my_list)
                 else:
                     print("** no instances found **")
