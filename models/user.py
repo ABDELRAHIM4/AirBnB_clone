@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """ class User that inherits from BaseModel"""
 from models.base_model import BaseModel
+from models.engine.file_storage import FileStorage
 """ class User that inherits from BaseModel"""
 class User(BaseModel):
     """User class"""

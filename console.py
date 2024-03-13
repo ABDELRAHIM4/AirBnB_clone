@@ -27,7 +27,7 @@ class HBNBCommand(cmd.Cmd):
             print ("** class name missing **")
         else:
             class_name = args[0]
-            if class_name != "BaseModel":
+            if class_name not in ["BaseModel", "User", "Place", "State", "City", "Amenity", "Review"]:
                 print("** class doesn't exist **")
             else:
                 st = BaseModel()
@@ -46,7 +46,7 @@ class HBNBCommand(cmd.Cmd):
             class_name = args[0]
             n_id = args[1]
 
-            if class_name != "BaseModel":
+            if class_name not in ["BaseModel", "User", "Place", "State", "City", "Amenity", "Review"]:
                 print("** class doesn't exist **")
             else:
                     if n_id in storage.all():
@@ -75,13 +75,19 @@ class HBNBCommand(cmd.Cmd):
             class_name = args[0]
             objs = storage.all()
             my_list = []
-            if class_name == "BaseModel":
+            if class_name in ["BaseModel", "User", "Place", "State", "City", "Amenity", "Review"]:
                 if objs:
                     for value in objs.values():
                             my_list.append(str(value))
                     print(my_list)
                 else:
                     print("** no instances found **")
+            elif class_name == "User":
+                if objs:
+                    for value in objs.values():
+                        if type(value).__name__ == "User":
+                            my_list.append(repr(value))
+                    print(my_list)
             else:
                 print("** class doesn't exist **")
     
