@@ -18,3 +18,8 @@ class User(BaseModel):
             if type(obj).__name__ == self.__class__.__name__:
                 count += 1
         return count
+    @classmethod
+    def all(cls):
+        """Return all instances of the User class"""
+        user_objects = storage.all(cls.__name__).values()
+        return [user for user in user_objects if isinstance(user, cls)]

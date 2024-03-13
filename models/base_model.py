@@ -53,3 +53,17 @@ class BaseModel:
             if type(obj).__name__ == self.__class__.__name__:
                 count += 1
         return count
+    @staticmethod
+    def all():
+        """Returns a dictionary of all instances of the class"""
+        return storage.all()
+    @staticmethod
+    def count(class_name):
+        """Returns the number of instances of the class"""
+        objs = storage.all()
+        count = 0
+        if objs:
+            for value in objs.values():
+                if type(value).__name__ == class_name:
+                    count += 1
+        return count

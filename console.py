@@ -2,6 +2,7 @@
 """Write a program called console.py"""
 import cmd
 import sys
+from models.user import User
 from models.base_model import BaseModel
 from models import storage
 from models.engine.file_storage import FileStorage
@@ -30,14 +31,14 @@ class HBNBCommand(cmd.Cmd):
             if class_name not in ["BaseModel", "User", "Place", "State", "City", "Amenity", "Review"]:
                 print("** class doesn't exist **")
             else:
-                st = BaseModel()
+                st = eval(class_name)()
                 st.save()
                 storage.new(st)
                 print(st.id)
     def do_show(self, arg):
         """Prints the string representation of an instance based on the class name and id"""
         args = arg.split()
-
+        obj = {}
         if len(args) < 1:
             print("** class name missing **")
         elif len(args) < 2:
@@ -49,9 +50,14 @@ class HBNBCommand(cmd.Cmd):
             if class_name not in ["BaseModel", "User", "Place", "State", "City", "Amenity", "Review"]:
                 print("** class doesn't exist **")
             else:
-                    if n_id in storage.all():
-                        obj = storage.all()[n_id]
-                        print(obj)
+                    obj = storage.all()
+                    if obj is not  None:
+                                for key, value in obj.items():
+                                    if key.startswith(class_name) and value.id == n_id:
+                                        print(f"{value}")
+                                        break
+                                    else:
+                                        print("** no instance found **")
                     else:
                         print("** no instance found **")
 
@@ -68,7 +74,7 @@ class HBNBCommand(cmd.Cmd):
             print("** no instance found **")
     def do_all(self, arg):
         """Prints all string representation of all instances of a class"""
-        args = arg.split()
+        args = arg.split('.')
         if not args:
             print("** class name required **")
         else:
@@ -88,10 +94,21 @@ class HBNBCommand(cmd.Cmd):
                         if type(value).__name__ == "User":
                             my_list.append(repr(value))
                     print(my_list)
-            else:
-                print("** class doesn't exist **")
-    
-
-
+            elif len(args) == 2:
+                if args[1] == "all":
+                    class_name = args[0]
+                    if class_name in ["BaseModel", "User", "Place", "State", "City", "Amenity", "Review"]:
+                        objs = storage.all()
+                        my_list = []
+                        if objs:
+                            for value in objs.values():
+                                my_list.append(str(value))
+                            print(my_list)
+                        else:
+                            print("** no instances found **")
+                    else:
+                        print("** class doesn't exist **")
+                else:
+                    print("** invalid syntax **")
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
