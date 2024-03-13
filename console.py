@@ -2,6 +2,11 @@
 """Write a program called console.py"""
 import cmd
 import sys
+from models.place import Place
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.review import Review
 from models.user import User
 from models.base_model import BaseModel
 from models import storage
@@ -94,21 +99,15 @@ class HBNBCommand(cmd.Cmd):
                         if type(value).__name__ == "User":
                             my_list.append(repr(value))
                     print(my_list)
-            elif len(args) == 2:
-                if args[1] == "all":
-                    class_name = args[0]
-                    if class_name in ["BaseModel", "User", "Place", "State", "City", "Amenity", "Review"]:
-                        objs = storage.all()
-                        my_list = []
-                        if objs:
-                            for value in objs.values():
-                                my_list.append(str(value))
-                            print(my_list)
-                        else:
-                            print("** no instances found **")
-                    else:
-                        print("** class doesn't exist **")
+            elif args[1] == 'all()':
+                class_name = args[0]
+                if class_name in storage.classes():
+                    objs = storage.all(class_name)
+                    for obj in objs.values():
+                        print(obj)
                 else:
-                    print("** invalid syntax **")
+                    print("** class doesn't exist **")
+            else:
+                     print("** class doesn't exist **")
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
