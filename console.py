@@ -40,6 +40,9 @@ class HBNBCommand(cmd.Cmd):
                 st.save()
                 storage.new(st)
                 print(st.id)
+                class_name = arg
+                count = storage.count(class_name)
+                print(count)
     def do_show(self, arg):
         """Prints the string representation of an instance based on the class name and id"""
         args = arg.split()
