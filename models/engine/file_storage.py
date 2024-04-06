@@ -19,3 +19,10 @@ class FileStorage:
         if os.path.isfile(self.__file_path):
           with open (self.__file_path , 'r') as file:
               data = json.load(file)
+    def count(self, class_name):
+        """Returns the number of instances of a given class"""
+        count = 0
+        for obj in self.__objects.values():
+            if type(obj).__name__ == class_name:
+                count += 1
+        return count
