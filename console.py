@@ -112,5 +112,19 @@ class HBNBCommand(cmd.Cmd):
                     print("** class doesn't exist **")
             else:
                      print("** class doesn't exist **")
+    def do_User(self, arg):
+        if (arg == "show"):
+                obj = {}
+                obj = storage.all()
+                if obj is not  None:
+                                for key, value in obj.items():
+                                    if key.startswith(class_name) and value.id == n_id:
+                                        print(f"{value}")
+                                        break
+                                    else:
+                                        print("** no instance found **")
+                else:
+                    print("** no instance found **")
+            
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
