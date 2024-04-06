@@ -113,12 +113,14 @@ class HBNBCommand(cmd.Cmd):
             else:
                      print("** class doesn't exist **")
     def do_User(self, arg):
-        if (arg == "show"):
+        args =arg.split('()')
+        if (arg[0] == "show"):
                 obj = {}
+                n_id = args[1]
                 obj = storage.all()
                 if obj is not  None:
                                 for key, value in obj.items():
-                                    if key.startswith(class_name) and value.id == n_id:
+                                    if value.id == n_id:
                                         print(f"{value}")
                                         break
                                     else:
