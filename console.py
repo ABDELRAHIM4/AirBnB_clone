@@ -102,17 +102,11 @@ class HBNBCommand(cmd.Cmd):
                         if type(value).__name__ == "User":
                             my_list.append(repr(value))
                     print(my_list)
-            elif args[1] == 'all()':
-                class_name = args[0]
-                if class_name in storage.classes():
-                    objs = storage.all(class_name)
-                    for obj in objs.values():
-                        print(obj)
                 else:
                     print("** class doesn't exist **")
             else:
                      print("** class doesn't exist **")
-    def do_User(self, arg):
+    """def do_User(self, arg):
         args =arg.split('.')
         if (arg[0] == "show"):
                 obj = {}
@@ -130,7 +124,7 @@ class HBNBCommand(cmd.Cmd):
         elif(arg[1] == "all"):
             obj = storage.all(User)
             for obj in objs.values():
-                        print(obj)
+                        print(obj)"""
             
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
