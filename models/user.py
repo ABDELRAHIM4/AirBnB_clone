@@ -22,7 +22,7 @@ class User(BaseModel):
     def all(cls):
         """Return all instances of the User class"""
         user_objects = storage.all(cls.__name__).values()
-        return [user for user in user_objects if isinstance(user, cls)]
+        return [user_objects]
     def show(cls):
         user_objects = storage.all(cls.__name__).values()
         return [user for user in user_objects if isinstance(user, cls)]
